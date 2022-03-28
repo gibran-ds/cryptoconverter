@@ -1,31 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package tests;
 
-import cryptoconverter.implementations.PriceChangesPublisher;
+import cryptoconverter.implementations.BitcoinPriceChangesPublisher;
+import cryptoconverter.implementations.EtherPriceChangesPublisher;
 import cryptoconverter.interfaces.IPriceChangeSubscriber;
 
-/**
- *
- * @author gibra
- */
 public class CryptoDisplay extends javax.swing.JFrame {
 
-    private final PriceChangesPublisher publisher;
+    private final BitcoinPriceChangesPublisher bitcoinsPublisher;
+    private final EtherPriceChangesPublisher ethersPublisher;
 
-    public CryptoDisplay(PriceChangesPublisher publisher) {
+    public CryptoDisplay(BitcoinPriceChangesPublisher bitcoinsPublisher, 
+            EtherPriceChangesPublisher etherPublisher) {
         initComponents();
-        this.publisher = publisher;
+        this.bitcoinsPublisher = bitcoinsPublisher;
+        this.ethersPublisher = etherPublisher;
         this.addCriptoPriceSubscribers();
     }
     
     private void addCriptoPriceSubscribers(){
-        this.publisher.subscribe(new IPriceChangeSubscriber() {
+        this.bitcoinsPublisher.subscribe(new IPriceChangeSubscriber() {
             @Override
             public void onPriceChanged(float price) {
                 lblBitcoinPrice.setText(price + " USD");
+            }
+        });
+        this.ethersPublisher.subscribe(new IPriceChangeSubscriber() {
+            @Override
+            public void onPriceChanged(float price) {
+                lblEtherPrice.setText(price + " USD");
             }
         });
     }
@@ -39,8 +41,19 @@ public class CryptoDisplay extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblBitcoin1 = new javax.swing.JLabel();
+        lblBitcoinPrice1 = new javax.swing.JLabel();
         lblBitcoin = new javax.swing.JLabel();
         lblBitcoinPrice = new javax.swing.JLabel();
+        lblEther = new javax.swing.JLabel();
+        lblEtherPrice = new javax.swing.JLabel();
+
+        lblBitcoin1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lblBitcoin1.setText("Bitcoin:");
+
+        lblBitcoinPrice1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lblBitcoinPrice1.setForeground(new java.awt.Color(0, 0, 153));
+        lblBitcoinPrice1.setText("N/A");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,15 +64,28 @@ public class CryptoDisplay extends javax.swing.JFrame {
         lblBitcoinPrice.setForeground(new java.awt.Color(0, 0, 153));
         lblBitcoinPrice.setText("N/A");
 
+        lblEther.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lblEther.setText("Ether:");
+
+        lblEtherPrice.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lblEtherPrice.setForeground(new java.awt.Color(0, 0, 153));
+        lblEtherPrice.setText("N/A");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblBitcoin, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblBitcoinPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblBitcoin, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblBitcoinPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblEther, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblEtherPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -69,7 +95,11 @@ public class CryptoDisplay extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBitcoin)
                     .addComponent(lblBitcoinPrice))
-                .addContainerGap(239, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEther)
+                    .addComponent(lblEtherPrice))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
 
         pack();
@@ -77,6 +107,10 @@ public class CryptoDisplay extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblBitcoin;
+    private javax.swing.JLabel lblBitcoin1;
     private javax.swing.JLabel lblBitcoinPrice;
+    private javax.swing.JLabel lblBitcoinPrice1;
+    private javax.swing.JLabel lblEther;
+    private javax.swing.JLabel lblEtherPrice;
     // End of variables declaration//GEN-END:variables
 }

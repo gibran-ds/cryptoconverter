@@ -3,9 +3,11 @@ package tests;
 import cryptoconverter.implementations.DollarToBitcoinAdapter;
 import cryptoconverter.MyAPP;
 import cryptoconverter.implementations.AlertPriceChangeSubscriber;
+import cryptoconverter.implementations.BitcoinPriceChangesPublisher;
 import cryptoconverter.implementations.CellPhoneLoginStrategy;
 import cryptoconverter.implementations.DollarToEtherAdapter;
 import cryptoconverter.implementations.EmailLoginStrategy;
+import cryptoconverter.implementations.EtherPriceChangesPublisher;
 import cryptoconverter.implementations.LoginContext;
 import cryptoconverter.implementations.PriceChangesPublisher;
 import currencies.Dollar;
@@ -41,10 +43,13 @@ public class Main {
 //            return;
 //        }
 
-        PriceChangesPublisher publisher = new PriceChangesPublisher();
-        publisher.subscribe(new AlertPriceChangeSubscriber());
-        new Timer().scheduleAtFixedRate(publisher, 0, 1000);
-        new CryptoDisplay(publisher).setVisible(true);
+        BitcoinPriceChangesPublisher bitcoinsPublisher = new BitcoinPriceChangesPublisher();
+        EtherPriceChangesPublisher etherPublisher = new EtherPriceChangesPublisher();
+        
+        bitcoinsPublisher.subscribe(new AlertPriceChangeSubscriber());
+        new Timer().scheduleAtFixedRate(bitcoinsPublisher, 0, 1000);
+        new Timer().scheduleAtFixedRate(etherPublisher, 0, 2000);
+        new CryptoDisplay(bitcoinsPublisher, etherPublisher).setVisible(true);
     }
     
 }

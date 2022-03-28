@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.TimerTask;
 
-public class PriceChangesPublisher extends TimerTask {
+public abstract class PriceChangesPublisher extends TimerTask {
     
     private List<IPriceChangeSubscriber> subscribers;
 
@@ -30,10 +30,6 @@ public class PriceChangesPublisher extends TimerTask {
     }
 
     @Override
-    public void run() {
-        // TODO: BUSINESS LOGIC... HTTP REQUEST TO BITCOIN SERVERS...
-        float price = (float)(Math.random() * 50000);
-        this.notifyNewPrice(price);
-    }
+    public abstract void run();
     
 }

@@ -1,21 +1,19 @@
 package cryptoconverter.implementations;
 
-import credentials.EmailCredentials;
 import cryptoconverter.interfaces.ILoginStrategy;
+import javax.swing.JOptionPane;
 
 public class EmailLoginStrategy implements ILoginStrategy {
 
     @Override
-    public boolean login(Object credentials) {
-        if(credentials instanceof EmailCredentials){
-            EmailCredentials emailCredentials = (EmailCredentials)credentials;
-            System.out.println("Iniciando sesión con Email");
-            System.out.println("Escribe tu email: ...");
-            System.out.println("Escribe tu password: ...");
-            // LOGICA DE INICIO POR EMAIL
+    public boolean login() {
+        // TODO: BUSINESS LOGIC
+        String email = JOptionPane.showInputDialog(null, "Escribe tu correo", "Información");
+        String password = JOptionPane.showInputDialog(null, "Escribe tu password", "Información");
+        if(email.equalsIgnoreCase("prueba@gmail.com") && password.equalsIgnoreCase("1234")){
             return true;
         }else{
-            throw new IllegalArgumentException("Login data is not credentials valid object");
+            return false;
         }
     }
     
